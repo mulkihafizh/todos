@@ -13,6 +13,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('dashboard.profile', compact('user'));
+    }
+
+
+    public function users()
+    {
+        $users = User::where('role', 'user')->get();
+        return view('dashboard.users', compact('users'));
+    }
+
     public function auth(Request $request)
     {
         $login = $request->validate([
@@ -94,7 +107,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dashboard.editprofile');
     }
 
     /**

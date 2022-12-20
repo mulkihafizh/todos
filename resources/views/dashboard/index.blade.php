@@ -39,13 +39,42 @@
 
         </div>
     @endif
-    <div class="container pt-20 ">
-        @include('component.todonav')
+    @if (Auth::user()->role == 'user')
+        <div class="container pt-20 ">
+            @include('component.todonav')
 
 
-    </div>
-    <div class="todos pb-20
+        </div>
+        <div class="todos pb-20
         ">
-        @yield('todos')
-    </div>
+            @yield('todos')
+        </div>
+    @elseif(Auth::user()->role == 'admin')
+        <div class="container pt-20 grid grid-cols-2 gap-5 ">
+            <div class="left">
+                <div class="card m-20 py-12  bg-gray-100  shadow-lg border rounded-lg gap-5 flex flex-col items-center">
+                    <div class="card-header">
+                        <i class="fa-solid fa-clipboard-list text-6xl"></i>
+                    </div>
+                    <div class="card-body flex items-center flex-col justify-center ">
+                        <h1 class="text-2xl ">Total Todos</h1>
+                        <p class="text-4xl ">{{ $todos->count() }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="card m-20 py-12 bg-gray-100  shadow-lg border rounded-lg gap-5 flex flex-col items-center">
+                    <div class="card-header">
+                        <a href="/todo/users">
+                            <i class="fa-solid fa-user text-6xl"></i>
+                        </a>
+                    </div>
+                    <div class="card-body flex items-center flex-col justify-center ">
+                        <h1 class="text-2xl ">Total User</h1>
+                        <p class="text-4xl ">{{ $users->count() }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

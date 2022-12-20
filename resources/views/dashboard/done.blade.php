@@ -33,8 +33,9 @@
                 @endforeach
             </div>
         @endif
-        <div class="footer border shadow bg-gray-100 fixed bottom-0 w-full py-3 container ">
-            <h1 class="float-right">Jumlah Todo: {{ $todos->count() }}</h1>
+    </div>
+    <div class="footer border shadow bg-gray-100 fixed bottom-0 w-full py-3 container ">
+        <h1 class="float-right">Jumlah Todo: {{ $todos->count() }}</h1>
 
-        </div>
-    @endsection
+    </div>
+@endsection

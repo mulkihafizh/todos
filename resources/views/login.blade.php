@@ -1,11 +1,14 @@
 @extends('layout.main')
 @section('content')
     <section id="login" class="min-h-screen flex items-center">
-        @if (session('authstat'))
-            <div class="info fixed bg-white py-2 px-3 border rounded-lg shadow-md mb-4 sm:mb-1">
-                {{ session('authstat') }}
+        @if (session('success'))
+            <div
+                class="bg-zinc-100 border animate-wiggle rounded-md p-4 fixed  flex right-3 gap-4 top-3 justify-center items-center  alert">
+                <i class="fa-solid fa-check  bg-green-600 rounded-full p-2 text-white"></i>
+                {{ session('success') }}
             </div>
         @endif
+
         @if (session('error'))
             Apa yang anda lakukan?
         @endif
@@ -16,6 +19,11 @@
                 </div>
             </div>
             <div class="right flex flex-col justify-center mx-8 sm:mx-0">
+                @if (session('authstat'))
+                    <div class="info  bg-white py-2 px-3 border rounded-lg shadow-md mb-4 sm:mb-1">
+                        {{ session('authstat') }}
+                    </div>
+                @endif
                 {{-- @if (session('authstat')) --}}
                 {{-- <div class="info bg-white py-2 px-3 border rounded-lg shadow-md mb-4 sm:mb-1"> --}}
                 {{-- {{ session('authstat') }} --}}

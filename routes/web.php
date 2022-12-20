@@ -22,12 +22,19 @@ Route::middleware('isGuest')->group(function () {
     Route::post('/auth', [UserController::class, 'auth'])->name('auth');
 });
 
-
-
-
-Route::middleware('isLogin')->group(function () {
-    Route::get('/', [TodoController::class, 'index'])->name('dashboard');
+Route::middleware('isLogin', 'cekRole:admin')->group(function () {
+    Route::get('/todo/users', [UserController::class, 'users'])->name('users');
+});
+Route::middleware('isLogin', 'cekRole:admin,user')->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('profile');
+    Route::get('/profile/edit/{id}', [UserController::class, 'edit'])->name('editprofile');
+    // Route::get('/', [TodoController::class, 'home'])->name('home');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('/', [TodoController::class, 'index'])->name('dashboard');
+});
+
+
+Route::middleware('isLogin', 'cekRole:user')->group(function () {
     Route::get('/create', [TodoController::class, 'add'])->name('add');
     Route::get('/selesai', [TodoController::class, 'done'])->name('done');
     Route::post('/add/todo', [TodoController::class, 'store'])->name('addtodo');
@@ -38,3 +45,7 @@ Route::middleware('isLogin')->group(function () {
     Route::get('/todo/edit/{id}', [TodoController::class, 'edit'])->name('edit');
     Route::patch('/todo/edit/update/{id}', [TodoController::class, 'update'])->name('update');
 });
+
+Route::get('/error', function () {
+    return view('error');
+})->name('error');
